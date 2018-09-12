@@ -1,0 +1,115 @@
+<HTML>
+       
+            
+        
+      
+       <BODY>
+        <FORM>
+        <TABLE BORDER=4>
+        <TR>
+        <TD>
+        <INPUT TYPE="text"   id="cal" Size="16">
+        <br>
+        </TD>
+        </TR>
+        <TR>
+        <TD>
+        <INPUT TYPE="button" NAME="one"   VALUE="  1  " OnClick="check('1')"/>
+        <INPUT TYPE="button" NAME="two"   VALUE="  2  " OnCLick="check('2') "/>
+        <INPUT TYPE="button" NAME="three" VALUE="  3  " OnClick="check('3')"/>
+        <INPUT TYPE="button" NAME="plus"  VALUE="  +  " OnClick="check('+')"/>
+        <br>
+        <INPUT TYPE="button" NAME="four"  VALUE="  4  " OnClick="check('4') "/>
+        <INPUT TYPE="button" NAME="five"  VALUE="  5  " OnCLick="check('5') "/>
+        <INPUT TYPE="button" NAME="six"   VALUE="  6  " OnClick="check('6') "/>
+        <INPUT TYPE="button" NAME="minus" VALUE="  -  " OnClick="check('-')"/>
+        <br>
+        <INPUT TYPE="button" NAME="seven" VALUE="  7  " OnClick="check('7') "/>
+        <INPUT TYPE="button" NAME="eight" VALUE="  8  " OnCLick="check('8')"/>
+        <INPUT TYPE="button" NAME="nine"  VALUE="  9  " OnClick="check('9') "/>
+        <INPUT TYPE="button" NAME="times" VALUE="  x  " OnClick="check('*')"/>
+        <br>
+        <INPUT TYPE="button" NAME="clear" VALUE="  c  " OnClick="check('c') "/>
+        <INPUT TYPE="button" NAME="zero"  VALUE="  0  " OnClick="check('0')"/>
+        <INPUT TYPE="button" NAME="DoIt"  VALUE="  =  " OnClick="check('=')"/>
+        <INPUT TYPE="button" NAME="div"   VALUE="  /  " OnClick="check('/')"/>
+        <br>
+        </TD>
+        </TR>
+        </TABLE>
+        </FORM>
+        </BODY>
+
+
+<SCRIPT>
+
+
+
+ var Input = document.getElementById("cal");
+  var isClear = false;
+  var temp = "";
+  var ctype = "";
+  var isContinue = true;
+  function check(clickValue) {
+    switch (clickValue) {
+      case "=":
+        if (temp != "" && ctype != "") {
+          Input.value = clac(temp, Input.value, ctype);
+          isContinue = false;
+          ctype = "";
+        }
+        break;
+      case "+":
+      case "-":
+      case "*":
+      case "/":
+         
+        if (ctype != "" && !isContinue) { 
+          temp = clac(temp, Input.value, ctype);
+          isClear = true;
+          ctype = clickValue;
+        } else {
+          temp = Input.value; 
+          isClear = true; 
+          ctype = clickValue; 
+        }
+        isContinue = true;
+        break;
+      case "c":
+        Input.value = "";
+        isClear = false;
+        temp = "";
+        ctype = "";
+        break;
+      default: 
+        Input.value = Input.value == " " ? "" : Input.value;
+        isContinue = false;
+        if (isClear) {
+          Input.value = "";
+          Input.value += clickValue;
+          isClear = false;
+        } else {
+          Input.value += clickValue;
+        }
+        break;
+    }
+  }
+
+
+  function clac(num1, num2, type) {
+    switch (type) {
+      case "+":
+        return Number(num1) + Number(num2);
+      case "-":
+        return Number(num1) - Number(num2);
+      case "*":
+        return Number(num1) * Number(num2);
+      case "/":
+        return Number(num1) / Number(num2);
+      default:
+        break;
+    }
+   }
+
+</SCRIPT>
+</HTML>
